@@ -9,7 +9,7 @@ addons:
     packages:
       - valgrind
 
-install:
+script:
   - phpize
   - ./configure
   - make
