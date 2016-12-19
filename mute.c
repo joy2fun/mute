@@ -32,7 +32,7 @@ static HashTable *ht_mute_calls;
 
 static void (*orig_execute_ex)(zend_execute_data *execute_data);
 static zend_string * mute_get_call_name(zend_execute_data *ex);
-static void mute_calls_init();
+static void mute_calls_init(void);
 static void mute_call_add(char *call, size_t len);
 
 static void mute_execute_ex(zend_execute_data *execute_data) /* {{{ */
@@ -88,7 +88,7 @@ static zend_string * mute_get_call_name(zend_execute_data *ex) /* {{{ */
 	return zs;
 } /* }}} */
 
-static void mute_calls_init() /* {{{ */
+static void mute_calls_init(void) /* {{{ */
 {
 	/* init persistent table */
 	ht_mute_calls = (HashTable *) pemalloc(sizeof(HashTable), 1);
@@ -131,7 +131,6 @@ static void mute_call_add(char *call, size_t len) /* {{{ */
 
 	key = zend_string_init(call, len, 0);
 	if (ZEND_HANDLE_NUMERIC(key, idx)) {
-		free(key);
 		/* skip numeric string */
 		/* TODO call name validation */
 	} else {
