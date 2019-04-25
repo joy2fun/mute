@@ -93,8 +93,8 @@ static void mute_calls_init(void) /* {{{ */
 	/* init persistent table */
 	ht_mute_calls = (HashTable *) pemalloc(sizeof(HashTable), 1);
 	zend_hash_init(ht_mute_calls, 0, NULL, ZVAL_PTR_DTOR, 1);
-	GC_FLAGS(ht_mute_calls) |= IS_ARRAY_IMMUTABLE;
-	GC_REFCOUNT(ht_mute_calls) = 2;
+	GC_ADD_FLAGS(ht_mute_calls, IS_ARRAY_IMMUTABLE);
+	GC_SET_REFCOUNT(ht_mute_calls, 1);
 
 	/* parse ini settings */
 	char *s = NULL;
